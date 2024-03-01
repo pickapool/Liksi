@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp"
+    android:orientation="vertical"
+    tools:context=".createTodoFragment">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/categoryCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#FFFFFF"
+        android:elevation="50dp"
+        app:cardCornerRadius="25dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp">
+
+                <EditText
+                    android:id="@+id/createTodo"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@drawable/newtaskbg"
+                    android:fontFamily="sans-serif-medium"
+                    android:hint="Enter new task"
+                    android:inputType="text"
+                    android:paddingLeft="10dp"
+                    android:textSize="14sp"></EditText>
+
+                <ImageButton
+                    android:id="@+id/send"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:background="#ADCACB"
+                    android:src="@drawable/send"></ImageButton>
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <Spinner
+                    android:id="@+id/selectCategory"
+                    android:layout_width="230dp"
+                    android:layout_height="48dp"
+                    android:background="@drawable/ctnamebg"
+                    android:entries="@array/Categories"
+                    android:layout_marginEnd="5dp"></Spinner>
+
+                <Switch
+                    android:id="@+id/setPriority"
+                    android:layout_width="130dp"
+                    android:layout_gravity="end"
+                    android:layout_height="48dp"
+                    android:background="@drawable/priobg"
+                    android:paddingLeft="10dp"
+                    android:text="Prioritize">
+
+                </Switch>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+</LinearLayout>

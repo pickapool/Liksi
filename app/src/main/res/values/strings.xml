@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Liksi</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <array name="Categories">
+        <item>Category 1</item>
+        <item>Category 2</item>
+    </array>
+</resources>

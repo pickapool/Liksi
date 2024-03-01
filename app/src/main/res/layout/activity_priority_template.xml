@@ -48,6 +48,7 @@
                 android:layout_marginBottom="32dp"
                 android:fontFamily="sans-serif-condensed-medium"
                 android:text="priority task"
+                android:textColor="@color/black"
                 android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/checkBox"

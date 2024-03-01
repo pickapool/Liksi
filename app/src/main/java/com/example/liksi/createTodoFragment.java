@@ -7,13 +7,16 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.Category;
 import com.example.liksi.Models.TodoModel;
 
@@ -22,7 +25,7 @@ import java.util.ArrayList;
 
 public class createTodoFragment extends Fragment {
 
-
+    int CategoryId = 0;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,14 +41,45 @@ public class createTodoFragment extends Fragment {
         Switch priority = view.findViewById(R.id.setPriority);
         Spinner category = view.findViewById(R.id.selectCategory);
 
-        ArrayList<String> categoryNames = new ArrayList<>();
-        for (Category cat1 : GlobalClass.ListOfCategories) {
-            categoryNames.add(cat1.getName());
-        }
+        AppDatabase app = AppDatabase.getInstance(getContext());
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item, categoryNames);
+        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(getContext(), android.R.layout.simple_spinner_item, app.categoryDao().Categories()) {
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getView(position, convertView, parent);
+                Category category = getItem(position);
+                if (category != null) {
+                    textView.setText(category.getName());
+                }
+                return textView;
+            }
+
+            @Override
+            public View getDropDownView(int position, View convertView, ViewGroup parent) {
+                TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
+                Category category = getItem(position);
+                if (category != null) {
+                    textView.setText(category.getName());
+                }
+                return textView;
+            }
+        };
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(adapter);
+
+        category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Category selectedCategory = (Category) parentView.getItemAtPosition(position);
+                CategoryId = selectedCategory.getCatId();
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+
+            }
+        });
+
 
         send.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,13 +87,9 @@ public class createTodoFragment extends Fragment {
                 TodoModel model = new TodoModel();
                 model.setPriority(priority.isChecked());
                 model.setTodo(todo.getText().toString());
-
-                Category cat = new Category();
-                cat.setName(category.getSelectedItem().toString());
-
-                GlobalClass.ToDoList.add(model);
-
-
+                model.setCategoryId(CategoryId);
+                AppDatabase app = AppDatabase.getInstance(getContext());
+                app.todoDao().AddTodo(model);
                 Toast.makeText(getContext(), "Task added.", Toast.LENGTH_SHORT).show();
                 todo.setText("");
 

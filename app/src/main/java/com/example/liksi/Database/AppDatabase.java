@@ -10,6 +10,7 @@ import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.liksi.Interface.CategoryDao;
+import com.example.liksi.Interface.TodoDao;
 import com.example.liksi.Models.Category;
 import com.example.liksi.Models.TodoModel;
 
@@ -17,6 +18,7 @@ import com.example.liksi.Models.TodoModel;
 public abstract class AppDatabase extends RoomDatabase{
     private static AppDatabase instance;
     public abstract CategoryDao categoryDao();
+    public abstract TodoDao todoDao();
     public static synchronized AppDatabase getInstance(Context context) {
         if (instance == null) {
             instance = Room.databaseBuilder(context.getApplicationContext(),

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.liksi.Adapters.AdapterPriorities;
 import com.example.liksi.Adapters.AdapterToDos;
+import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.TodoModel;
 
 import java.util.List;
@@ -42,7 +43,8 @@ public class priorityFragment extends Fragment {
         linearLayoutManager = new LinearLayoutManager(getContext());
         recyclerView = view.findViewById(R.id.priorities);
 
-        List<TodoModel> priorities = GlobalClass.ToDoList.stream()
+        AppDatabase app = AppDatabase.getInstance(getContext());
+        List<TodoModel> priorities = app.todoDao().getAllTodos().stream()
                 .filter(TodoModel::isPriority) // Apply the condition here
                 .collect(Collectors.toList());
 

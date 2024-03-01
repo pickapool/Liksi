@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import androidx.appcompat.widget.SearchView;
 
 import com.example.liksi.Adapters.AdapterToDos;
+import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.TodoModel;
 
 import java.util.List;
@@ -38,7 +39,8 @@ public class    todoFragment extends Fragment {
             public boolean onQueryTextSubmit(String s) {
                 if(s.length() > 0)
                 {
-                    List<TodoModel> list = GlobalClass.ToDoList.stream()
+                    AppDatabase app = AppDatabase.getInstance(getContext());
+                    List<TodoModel> list = app.todoDao().getAllTodos().stream()
                             .filter(todo -> todo.getTodo().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterToDos(getContext(), list);
@@ -54,7 +56,8 @@ public class    todoFragment extends Fragment {
             @Override
             public boolean onQueryTextChange(String s) {
                 if(s.length() > 0) {
-                    List<TodoModel> list = GlobalClass.ToDoList.stream()
+                    AppDatabase app = AppDatabase.getInstance(getContext());
+                    List<TodoModel> list = app.todoDao().getAllTodos().stream()
                             .filter(todo -> todo.getTodo().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterToDos(getContext(), list);
@@ -74,7 +77,8 @@ public class    todoFragment extends Fragment {
     }
     private void SetList()
     {
-        adapter = new AdapterToDos(getContext(), GlobalClass.ToDoList);
+        AppDatabase app = AppDatabase.getInstance(getContext());
+        adapter = new AdapterToDos(getContext(), app.todoDao().getAllTodos());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

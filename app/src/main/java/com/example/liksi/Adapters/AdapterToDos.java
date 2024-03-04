@@ -1,16 +1,20 @@
 package com.example.liksi.Adapters;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.GlobalClass;
 import com.example.liksi.Models.TodoModel;
 import com.example.liksi.Models.TodoWithCategoryModel;
@@ -56,7 +60,38 @@ public class AdapterToDos extends RecyclerView.Adapter<AdapterToDos.ViewHolder>{
             holder.cat.setText(todo.categoryModel.getName());
             //Toast.makeText(context, String.valueOf(todo.categoryModel.getName()), Toast.LENGTH_SHORT).show();
         }
-            //
+        holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b)
+                {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setCancelable(false);
+                    builder.setTitle("Confirmation");
+                    builder.setMessage("Finished task will be deleted.");
+                    builder.setPositiveButton("Confirm",
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    AppDatabase app = AppDatabase.getInstance(context);
+                                    app.todoDao().DeleteTodo(todo.todoModel);
+                                    todos = app.todoDao().getTodosWithCategory();
+                                    notifyDataSetChanged();
+                                }
+                            });
+                    builder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            holder.checkBox.setChecked(false);
+                            dialog.dismiss();
+                        }
+                    });
+
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+            }
+        });
     }
 
     @Override

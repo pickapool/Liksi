@@ -86,6 +86,16 @@ public class createTodoFragment extends Fragment {
                 model.setPriority(priority.isChecked());
                 model.setTodo(todo.getText().toString());
                 model.setCategoryId(CategoryId);
+                if(todo.getText().toString().trim().equals(""))
+                {
+                    Toast.makeText(getContext(), "Task is required!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(CategoryId <= 0)
+                {
+                    Toast.makeText(getContext(), "Please add category!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 AppDatabase app = AppDatabase.getInstance(getContext());
                 app.todoDao().AddTodo(model);
                 Toast.makeText(getContext(), "Task added.", Toast.LENGTH_SHORT).show();

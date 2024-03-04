@@ -46,6 +46,7 @@
                     android:id="@+id/_categoryName"
                     android:layout_width="match_parent"
                     android:layout_height="17dp"
+                    android:fontFamily="sans-serif-condensed-medium"
                     android:textSize="16sp"
                     android:textColor="@color/black"
                     android:textStyle="italic" />

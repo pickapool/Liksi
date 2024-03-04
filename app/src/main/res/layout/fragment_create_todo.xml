@@ -55,16 +55,19 @@
 
                 <Spinner
                     android:id="@+id/selectCategory"
-                    android:layout_width="230dp"
+                    android:layout_width="match_parent"
+                    android:layout_marginRight="20dp"
                     android:layout_height="48dp"
+                    android:layout_weight="1"
                     android:background="@drawable/ctnamebg"
                     android:entries="@array/Categories"
                     android:layout_marginEnd="5dp"></Spinner>
 
                 <Switch
                     android:id="@+id/setPriority"
-                    android:layout_width="130dp"
+                    android:layout_width="match_parent"
                     android:layout_gravity="end"
+                    android:layout_weight="2"
                     android:layout_height="48dp"
                     android:background="@drawable/priobg"
                     android:paddingLeft="10dp"

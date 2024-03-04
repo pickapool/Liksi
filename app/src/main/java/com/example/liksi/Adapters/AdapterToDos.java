@@ -6,12 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liksi.GlobalClass;
 import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.TodoWithCategoryModel;
 import com.example.liksi.R;
 
 import org.w3c.dom.Text;
@@ -22,9 +24,9 @@ public class AdapterToDos extends RecyclerView.Adapter<AdapterToDos.ViewHolder>{
     private static final int PRIORITY_VIEW_TYPE = 1;
     private static final int REGULAR_VIEW_TYPE = 2;
     Context context;
-    List<TodoModel> todos;
+    List<TodoWithCategoryModel> todos;
 
-    public AdapterToDos(Context context, List<TodoModel> todos) {
+    public AdapterToDos(Context context, List<TodoWithCategoryModel> todos) {
         this.context = context;
         this.todos = todos;
     }
@@ -42,13 +44,19 @@ public class AdapterToDos extends RecyclerView.Adapter<AdapterToDos.ViewHolder>{
     }
     @Override
     public int getItemViewType(int position) {
-        TodoModel toDo = todos.get(position);
-        return toDo.isPriority() ? PRIORITY_VIEW_TYPE : REGULAR_VIEW_TYPE;
+        TodoWithCategoryModel toDo = todos.get(position);
+        return toDo.todoModel.isPriority() ? PRIORITY_VIEW_TYPE : REGULAR_VIEW_TYPE;
     }
     @Override
     public void onBindViewHolder(@NonNull AdapterToDos.ViewHolder holder, int position) {
-        TodoModel todo = todos.get(position);
-        holder.task.setText(todo.getTodo());
+        TodoWithCategoryModel todo = todos.get(position);
+        holder.task.setText(todo.todoModel.getTodo());
+        if(todo.categoryModel != null)
+        {
+            holder.cat.setText(todo.categoryModel.getName());
+            //Toast.makeText(context, String.valueOf(todo.categoryModel.getName()), Toast.LENGTH_SHORT).show();
+        }
+            //
     }
 
     @Override
@@ -58,11 +66,12 @@ public class AdapterToDos extends RecyclerView.Adapter<AdapterToDos.ViewHolder>{
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
-        TextView task;
+        TextView task, cat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkBox);
             task = itemView.findViewById(R.id.task);
+            cat = itemView.findViewById(R.id.categoryName);
         }
     }
 }

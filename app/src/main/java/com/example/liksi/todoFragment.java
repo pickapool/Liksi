@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SearchView;
 import com.example.liksi.Adapters.AdapterToDos;
 import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.TodoWithCategoryModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -40,8 +41,8 @@ public class    todoFragment extends Fragment {
                 if(s.length() > 0)
                 {
                     AppDatabase app = AppDatabase.getInstance(getContext());
-                    List<TodoModel> list = app.todoDao().getAllTodos().stream()
-                            .filter(todo -> todo.getTodo().contains(s)) // Apply the condition here
+                    List<TodoWithCategoryModel> list = app.todoDao().getTodosWithCategory().stream()
+                            .filter(todo -> todo.todoModel.getTodo().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterToDos(getContext(), list);
                     recyclerView.setLayoutManager(linearLayoutManager);
@@ -57,8 +58,8 @@ public class    todoFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 if(s.length() > 0) {
                     AppDatabase app = AppDatabase.getInstance(getContext());
-                    List<TodoModel> list = app.todoDao().getAllTodos().stream()
-                            .filter(todo -> todo.getTodo().contains(s)) // Apply the condition here
+                    List<TodoWithCategoryModel> list = app.todoDao().getTodosWithCategory().stream()
+                            .filter(todo -> todo.todoModel.getTodo().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterToDos(getContext(), list);
                     recyclerView.setLayoutManager(linearLayoutManager);
@@ -78,7 +79,7 @@ public class    todoFragment extends Fragment {
     private void SetList()
     {
         AppDatabase app = AppDatabase.getInstance(getContext());
-        adapter = new AdapterToDos(getContext(), app.todoDao().getAllTodos());
+        adapter = new AdapterToDos(getContext(), app.todoDao().getTodosWithCategory());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();

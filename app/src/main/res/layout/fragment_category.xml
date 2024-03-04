@@ -34,7 +34,7 @@
         app:queryHint="Search Here" />
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/logo"
         android:layout_width="61dp"
         android:layout_height="57dp"
         android:src="@drawable/liksi_icon"

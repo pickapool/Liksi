@@ -19,10 +19,9 @@ import android.widget.EditText;
 
 import com.example.liksi.Adapters.AdapterCategory;
 import com.example.liksi.Database.AppDatabase;
-import com.example.liksi.Models.Category;
+import com.example.liksi.Models.CategoryModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -68,7 +67,7 @@ public class categoryFragment extends Fragment {
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Category cat = new Category();
+                        CategoryModel cat = new CategoryModel();
                         cat.setName(cate.getText().toString());
                         cat.setDescription(des.getText().toString());
                         try {
@@ -96,7 +95,7 @@ public class categoryFragment extends Fragment {
                 if(s.length() > 0)
                 {
                     AppDatabase db = AppDatabase.getInstance(getContext());
-                    List<Category> list = db.categoryDao().Categories().stream()
+                    List<CategoryModel> list = db.categoryDao().Categories().stream()
                             .filter(todo -> todo.getName().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterCategory(getContext(), list);
@@ -113,7 +112,7 @@ public class categoryFragment extends Fragment {
             public boolean onQueryTextChange(String s) {
                 if(s.length() > 0) {
                     AppDatabase db = AppDatabase.getInstance(getContext());
-                    List<Category> list = db.categoryDao().Categories().stream()
+                    List<CategoryModel> list = db.categoryDao().Categories().stream()
                             .filter(todo -> todo.getName().contains(s)) // Apply the condition here
                             .collect(Collectors.toList());
                     adapter = new AdapterCategory(getContext(), list);

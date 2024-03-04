@@ -4,7 +4,7 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-@Entity(foreignKeys = @ForeignKey(entity = Category.class,
+@Entity(foreignKeys = @ForeignKey(entity = CategoryModel.class,
         parentColumns = "catId",
         childColumns = "categoryId",
         onDelete = ForeignKey.CASCADE))

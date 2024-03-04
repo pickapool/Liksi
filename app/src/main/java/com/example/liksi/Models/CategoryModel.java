@@ -4,16 +4,16 @@ import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Category {
+public class CategoryModel {
     @PrimaryKey(autoGenerate = true)
     public int catId;
     public String name;
     public String description;
 
-    public Category() {
+    public CategoryModel() {
     }
 
-    public Category(int catId, String name, String description) {
+    public CategoryModel(int catId, String name, String description) {
         this.catId = catId;
         this.name = name;
         this.description = description;

@@ -21,6 +21,7 @@ public class home extends AppCompatActivity {
         bottomNavigationView = findViewById(R.id.navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
+        bottomNavigationView.setItemActiveIndicatorHeight((int) (90 * getResources().getDisplayMetrics().density));
         getSupportFragmentManager().beginTransaction().replace(R.id.container,
                 new todoFragment()).commit();
 

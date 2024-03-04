@@ -30,7 +30,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/navigation_menu"
-        app:itemIconSize="70dp"
+        app:itemIconSize="60dp"
         app:itemIconTint="@color/white"/>
 
 </RelativeLayout>

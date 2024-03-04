@@ -1,6 +1,5 @@
 package com.example.liksi.Adapters;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -9,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,9 +17,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liksi.Database.AppDatabase;
-import com.example.liksi.GlobalClass;
-import com.example.liksi.Models.Category;
-import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.CategoryModel;
 import com.example.liksi.R;
 
 import java.util.List;
@@ -29,9 +25,9 @@ import java.util.List;
 public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
 
     Context context;
-    List<Category> cats;
+    List<CategoryModel> cats;
 
-    public AdapterCategory(Context context, List<Category> cats) {
+    public AdapterCategory(Context context, List<CategoryModel> cats) {
         this.context = context;
         this.cats = cats;
     }
@@ -45,7 +41,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull AdapterCategory.ViewHolder holder, int position) {
-        Category cat = cats.get(position);
+        CategoryModel cat = cats.get(position);
         holder.cat.setText(cat.getName());
         holder.des.setText(cat.getDescription());
 
@@ -80,7 +76,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
                 save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Category cat1 = new Category();
+                        CategoryModel cat1 = new CategoryModel();
                         cat1.setName(cate.getText().toString());
                         cat1.setDescription(des.getText().toString());
                         cat1.setCatId(cat.getCatId());

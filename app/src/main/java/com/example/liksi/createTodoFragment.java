@@ -17,10 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.liksi.Database.AppDatabase;
-import com.example.liksi.Models.Category;
+import com.example.liksi.Models.CategoryModel;
 import com.example.liksi.Models.TodoModel;
-
-import java.util.ArrayList;
 
 
 public class createTodoFragment extends Fragment {
@@ -43,13 +41,13 @@ public class createTodoFragment extends Fragment {
 
         AppDatabase app = AppDatabase.getInstance(getContext());
 
-        ArrayAdapter<Category> adapter = new ArrayAdapter<Category>(getContext(), android.R.layout.simple_spinner_item, app.categoryDao().Categories()) {
+        ArrayAdapter<CategoryModel> adapter = new ArrayAdapter<CategoryModel>(getContext(), android.R.layout.simple_spinner_item, app.categoryDao().Categories()) {
             @Override
             public View getView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getView(position, convertView, parent);
-                Category category = getItem(position);
-                if (category != null) {
-                    textView.setText(category.getName());
+                CategoryModel categoryModel = getItem(position);
+                if (categoryModel != null) {
+                    textView.setText(categoryModel.getName());
                 }
                 return textView;
             }
@@ -57,9 +55,9 @@ public class createTodoFragment extends Fragment {
             @Override
             public View getDropDownView(int position, View convertView, ViewGroup parent) {
                 TextView textView = (TextView) super.getDropDownView(position, convertView, parent);
-                Category category = getItem(position);
-                if (category != null) {
-                    textView.setText(category.getName());
+                CategoryModel categoryModel = getItem(position);
+                if (categoryModel != null) {
+                    textView.setText(categoryModel.getName());
                 }
                 return textView;
             }
@@ -71,8 +69,8 @@ public class createTodoFragment extends Fragment {
         category.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Category selectedCategory = (Category) parentView.getItemAtPosition(position);
-                CategoryId = selectedCategory.getCatId();
+                CategoryModel selectedCategoryModel = (CategoryModel) parentView.getItemAtPosition(position);
+                CategoryId = selectedCategoryModel.getCatId();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parentView) {

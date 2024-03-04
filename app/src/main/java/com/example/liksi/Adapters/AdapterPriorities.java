@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.TodoWithCategoryModel;
 import com.example.liksi.R;
 
 import java.util.List;
@@ -18,9 +19,9 @@ import java.util.List;
 public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.ViewHolder>{
 
     Context context;
-    List<TodoModel> todos;
+    List<TodoWithCategoryModel> todos;
 
-    public AdapterPriorities(Context context, List<TodoModel> todos) {
+    public AdapterPriorities(Context context, List<TodoWithCategoryModel> todos) {
         this.context = context;
         this.todos = todos;
     }
@@ -33,8 +34,9 @@ public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.Vi
 
     @Override
     public void onBindViewHolder(@NonNull AdapterPriorities.ViewHolder holder, int position) {
-        TodoModel todo = todos.get(position);
-        holder.task.setText(todo.getTodo());
+        TodoWithCategoryModel todo = todos.get(position);
+        holder.task.setText(todo.todoModel.getTodo());
+        holder.cat.setText(todo.categoryModel.getName());
     }
 
     @Override
@@ -44,11 +46,12 @@ public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
-        TextView task;
+        TextView task,cat;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkBox);
             task = itemView.findViewById(R.id.task);
+            cat = itemView.findViewById(R.id.categoryName);
         }
     }
 }

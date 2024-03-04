@@ -14,6 +14,7 @@ import com.example.liksi.Adapters.AdapterPriorities;
 import com.example.liksi.Adapters.AdapterToDos;
 import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.TodoWithCategoryModel;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,8 +45,8 @@ public class priorityFragment extends Fragment {
         recyclerView = view.findViewById(R.id.priorities);
 
         AppDatabase app = AppDatabase.getInstance(getContext());
-        List<TodoModel> priorities = app.todoDao().getAllTodos().stream()
-                .filter(TodoModel::isPriority) // Apply the condition here
+        List<TodoWithCategoryModel> priorities = app.todoDao().getTodosWithCategory().stream()
+                .filter( e -> e.todoModel.isPriority() == true) // Apply the condition here
                 .collect(Collectors.toList());
 
         adapter = new AdapterPriorities(getContext(), priorities);

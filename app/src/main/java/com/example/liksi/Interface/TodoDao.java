@@ -7,8 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.liksi.Models.Category;
 import com.example.liksi.Models.TodoModel;
+import com.example.liksi.Models.TodoWithCategoryModel;
 
 import java.util.List;
 
@@ -25,5 +25,8 @@ public interface TodoDao {
 
     @Query("SELECT * FROM TodoModel")
     List<TodoModel> getAllTodos();
+
+    @Query("SELECT * FROM TodoModel INNER JOIN CategoryModel ON TodoModel.categoryId = CategoryModel.catId")
+    List<TodoWithCategoryModel> getTodosWithCategory();
 
 }

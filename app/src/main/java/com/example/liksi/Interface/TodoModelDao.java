@@ -1,4 +1,4 @@
-package com.example.liksi.Database;
+package com.example.liksi.Interface;
 
 import androidx.room.Dao;
 import androidx.room.Insert;

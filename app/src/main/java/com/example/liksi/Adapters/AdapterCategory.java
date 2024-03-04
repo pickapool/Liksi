@@ -114,8 +114,8 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            des = itemView.findViewById(R.id.categoryname);
-            cat = itemView.findViewById(R.id.categorydesc);
+            cat = itemView.findViewById(R.id.categoryname);
+            des = itemView.findViewById(R.id.categorydesc);
             edit = itemView.findViewById(R.id.editCatBtn);
             delete = itemView.findViewById(R.id.deleteCatBtn);
         }

@@ -11,7 +11,7 @@ import com.example.liksi.Interface.TodoDao;
 import com.example.liksi.Models.CategoryModel;
 import com.example.liksi.Models.TodoModel;
 
-@Database(entities = {CategoryModel.class, TodoModel.class}, version = 2)
+@Database(entities = {CategoryModel.class, TodoModel.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase{
     private static AppDatabase instance;
     public abstract CategoryDao categoryDao();
@@ -24,5 +24,8 @@ public abstract class AppDatabase extends RoomDatabase{
                     .build();
         }
         return instance;
+    }
+    public void clearAllData() {
+        instance.clearAllTables();
     }
 }

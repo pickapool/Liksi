@@ -10,7 +10,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/priorityCardView"
         android:layout_width="360dp"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
         android:layout_centerInParent="true"
         android:backgroundTint="#ADCACB"
         app:cardCornerRadius="25dp">
@@ -50,10 +50,24 @@
                     android:textStyle="italic"></TextView>
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/onOffAlarm"
+                    android:layout_width="50dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/baseline_alarm_off_24" />
+
+                <TextView
+                    android:id="@+id/timeAlarm"
+                    android:text="00:00"
+                    android:gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </RelativeLayout>

@@ -28,5 +28,7 @@ public interface TodoDao {
 
     @Query("SELECT * FROM TodoModel INNER JOIN CategoryModel ON TodoModel.categoryId = CategoryModel.catId")
     List<TodoWithCategoryModel> getTodosWithCategory();
+    @Query("SELECT * FROM TodoModel INNER JOIN CategoryModel ON TodoModel.categoryId = CategoryModel.catId WHERE TodoModel.categoryId=:id")
+    List<TodoWithCategoryModel> getAllTodosCategory(int id);
 
 }

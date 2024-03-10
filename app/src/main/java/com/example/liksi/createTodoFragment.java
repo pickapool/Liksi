@@ -1,5 +1,6 @@
 package com.example.liksi;
 
+import android.app.TimePickerDialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,21 +10,28 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CheckedTextView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.liksi.Database.AppDatabase;
 import com.example.liksi.Models.CategoryModel;
 import com.example.liksi.Models.TodoModel;
 
+import java.util.Calendar;
+import java.util.Locale;
+
 
 public class createTodoFragment extends Fragment {
 
     int CategoryId = 0;
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +46,31 @@ public class createTodoFragment extends Fragment {
         ImageButton send = view.findViewById(R.id.send);
         Switch priority = view.findViewById(R.id.setPriority);
         Spinner category = view.findViewById(R.id.selectCategory);
+        EditText alarm = view.findViewById(R.id.setalarm);
+        CheckedTextView isAlarm = (CheckedTextView) view.findViewById(R.id.isAlarmChecked);
+        isAlarm.setCheckMarkDrawable (R.drawable.close_circle_svgrepo_com);
+        isAlarm.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View view) {
+               if (isAlarm.isSelected())
+               {
+                   isAlarm.setSelected(false);
+                   isAlarm.setCheckMarkDrawable (R.drawable.close_circle_svgrepo_com);
+               }
+               else
+               {
+                   isAlarm.setSelected(true);
+                   isAlarm.setCheckMarkDrawable (R.drawable.check_circle_svgrepo_com);
+               }
+           }
+       });
+
+        alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showTimePickerDialog(alarm);
+            }
+        });
 
         AppDatabase app = AppDatabase.getInstance(getContext());
 
@@ -86,6 +119,14 @@ public class createTodoFragment extends Fragment {
                 model.setPriority(priority.isChecked());
                 model.setTodo(todo.getText().toString());
                 model.setCategoryId(CategoryId);
+                model.setAlarm(isAlarm.isSelected());
+                model.setAlarm(alarm.getText().toString());
+                if(isAlarm.isSelected()) {
+                    if (alarm.getText().toString().trim().equals("")) {
+                        Toast.makeText(getContext(), "Time is required", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
                 if(todo.getText().toString().trim().equals(""))
                 {
                     Toast.makeText(getContext(), "Task is required!", Toast.LENGTH_SHORT).show();
@@ -105,5 +146,25 @@ public class createTodoFragment extends Fragment {
         });
 
         return view;
+    }
+    private void showTimePickerDialog(EditText views) {
+        final Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+        int minute = calendar.get(Calendar.MINUTE);
+
+        TimePickerDialog timePickerDialog = new TimePickerDialog(getContext(),
+                new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        String formattedHour = String.format(Locale.getDefault(), "%02d", hourOfDay);
+                        String formattedMinute = String.format(Locale.getDefault(), "%02d", minute);
+
+                        String selectedTime = formattedHour + ":" + formattedMinute;
+
+                        views.setText(selectedTime);
+                    }
+                }, hour, minute, true);
+
+        timePickerDialog.show();
     }
 }

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import androidx.appcompat.widget.SearchView;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.liksi.Adapters.AdapterCategory;
 import com.example.liksi.Database.AppDatabase;
@@ -70,6 +72,11 @@ public class categoryFragment extends Fragment {
                         CategoryModel cat = new CategoryModel();
                         cat.setName(cate.getText().toString());
                         cat.setDescription(des.getText().toString());
+                        if(cate.getText().toString().trim().equals("") || des.getText().toString().trim().equals(""))
+                        {
+                            Toast.makeText(getContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         try {
                             AppDatabase db = AppDatabase.getInstance(getContext());
                             db.categoryDao().AddCategory(cat);
@@ -139,6 +146,17 @@ public class categoryFragment extends Fragment {
             recyclerView.setLayoutManager(linearLayoutManager);
             recyclerView.setAdapter(adapter);
             adapter.notifyDataSetChanged();
+            adapter.setOnItemClickListener(new AdapterCategory.OnItemClickListener() {
+                @Override
+                public void onItemRightDrawableClick(CategoryModel category) {
+                    // Perform fragment change here using category information if needed
+                    // For example:
+                    FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.container, new tasksOnCat(category));
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
         }catch (Exception ee)
         {
             System.out.println("99911-" + ee.getMessage());

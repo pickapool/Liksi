@@ -14,13 +14,33 @@ public class TodoModel {
     public String todo;
     public boolean isPriority;
     public int categoryId;
+    public String alarm;
+    public boolean isAlarm;
     public TodoModel(){}
 
-    public TodoModel(int todoId, String todo, boolean isPriority, int categoryId) {
+    public TodoModel(int todoId, String todo, boolean isPriority, int categoryId, String alarm, boolean isAlarm) {
         this.todoId = todoId;
         this.todo = todo;
         this.isPriority = isPriority;
         this.categoryId = categoryId;
+        this.alarm = alarm;
+        this.isAlarm = isAlarm;
+    }
+
+    public boolean isAlarm() {
+        return isAlarm;
+    }
+
+    public void setAlarm(boolean alarm) {
+        isAlarm = alarm;
+    }
+
+    public String getAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(String alarm) {
+        this.alarm = alarm;
     }
 
     public int getTodoId() {

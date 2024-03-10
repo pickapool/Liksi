@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,6 +44,7 @@ public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.Vi
         TodoWithCategoryModel todo = todos.get(position);
         holder.task.setText(todo.todoModel.getTodo());
         holder.cat.setText(todo.categoryModel.getName());
+        holder.timeAlarm.setText(todo.todoModel.getAlarm());
         holder.checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -77,6 +79,33 @@ public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.Vi
                 }
             }
         });
+        SetAlarmicon(holder, todo);
+        holder.alarm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(todo.todoModel.isAlarm())
+                {
+
+                    todo.todoModel.isAlarm = false;
+
+                } else {
+                    todo.todoModel.isAlarm = true;
+                }
+                AppDatabase appDatabase = AppDatabase.getInstance(view.getContext());
+                appDatabase.todoDao().UpdateTodo(todo.todoModel);
+                SetAlarmicon(holder, todo);
+            }
+        });
+
+    }
+    private void SetAlarmicon(AdapterPriorities.ViewHolder holder, TodoWithCategoryModel todo)
+    {
+        if(todo.todoModel.isAlarm())
+        {
+            holder.alarm.setImageResource(R.drawable.baseline_alarm_on_24);
+        } else {
+            holder.alarm.setImageResource(R.drawable.baseline_alarm_off_24);
+        }
     }
 
     @Override
@@ -86,12 +115,15 @@ public class AdapterPriorities extends RecyclerView.Adapter<AdapterPriorities.Vi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         CheckBox checkBox;
-        TextView task,cat;
+        TextView task,cat,timeAlarm;
+        ImageView alarm;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             checkBox = itemView.findViewById(R.id.checkBox);
             task = itemView.findViewById(R.id.task);
             cat = itemView.findViewById(R.id.categoryName);
+            alarm = itemView.findViewById(R.id.onOffAlarm);
+            timeAlarm = itemView.findViewById(R.id.timeAlarm);
         }
     }
 }

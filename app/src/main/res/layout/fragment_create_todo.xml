@@ -36,15 +36,20 @@
                     android:hint="Enter new task"
                     android:inputType="text"
                     android:paddingLeft="10dp"
-                    android:textSize="14sp"></EditText>
+                    android:textSize="14sp">
+
+                </EditText>
 
                 <ImageButton
                     android:id="@+id/send"
+                    android:contentDescription="null"
                     android:layout_width="50dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:background="#ADCACB"
-                    android:src="@drawable/send"></ImageButton>
+                    android:src="@drawable/send">
+
+                </ImageButton>
             </RelativeLayout>
 
             <LinearLayout
@@ -56,25 +61,56 @@
                 <Spinner
                     android:id="@+id/selectCategory"
                     android:layout_width="match_parent"
-                    android:layout_marginRight="20dp"
                     android:layout_height="48dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="20dp"
                     android:layout_weight="2"
                     android:background="@drawable/ctnamebg"
-                    android:entries="@array/Categories"
-                    android:layout_marginEnd="5dp"></Spinner>
+                    android:entries="@array/Categories">
+
+                </Spinner>
 
                 <Switch
                     android:id="@+id/setPriority"
                     android:layout_width="match_parent"
+                    android:layout_height="48dp"
                     android:layout_gravity="end"
                     android:layout_weight="2"
-                    android:layout_height="48dp"
                     android:background="@drawable/priobg"
                     android:paddingLeft="10dp"
                     android:text="Prioritize">
-
                 </Switch>
+
             </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <CheckedTextView
+                    android:id="@+id/isAlarmChecked"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Set Alarm:"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingLeft="5dp"
+                    />
+
+                <EditText
+                    android:id="@+id/setalarm"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:editable="false"
+                    android:longClickable="false"
+                    android:layout_weight="1"
+                    android:hint="00:00" />
+            </LinearLayout>
+
         </LinearLayout>
+
     </androidx.cardview.widget.CardView>
 </LinearLayout>

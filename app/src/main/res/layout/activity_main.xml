@@ -21,12 +21,12 @@
 
         <TextView
             android:id="@+id/quote"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="160dp"
-            android:layout_marginTop="228dp"
+            android:layout_marginTop="190dp"
             android:layout_marginEnd="160dp"
-            android:layout_marginBottom="199dp"
+            android:layout_marginBottom="87dp"
             android:fontFamily="sans-serif-condensed-medium"
             android:text="&quot;Quotation&quot;"
             android:textAlignment="center"

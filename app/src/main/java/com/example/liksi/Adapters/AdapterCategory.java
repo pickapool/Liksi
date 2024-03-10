@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -11,12 +12,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.liksi.Database.AppDatabase;
+import com.example.liksi.Interface.OnItemClickListener;
 import com.example.liksi.Models.CategoryModel;
 import com.example.liksi.R;
 
@@ -26,10 +29,14 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
     Context context;
     List<CategoryModel> cats;
+    private OnItemClickListener listener;
 
     public AdapterCategory(Context context, List<CategoryModel> cats) {
         this.context = context;
         this.cats = cats;
+    }
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -91,6 +98,14 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
                 });
             }
         });
+        holder.gotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (listener != null) {
+                    listener.onItemRightDrawableClick(cat); // Pass the category to the listener
+                }
+            }
+        });
         holder.delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -101,6 +116,9 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
             }
         });
     }
+    public interface OnItemClickListener {
+        void onItemRightDrawableClick(CategoryModel category);
+    }
 
     @Override
     public int getItemCount() {
@@ -110,7 +128,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView des;
         TextView cat;
-        ImageView edit, delete;
+        ImageView edit, delete, gotos;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -118,6 +136,7 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
             des = itemView.findViewById(R.id.categorydesc);
             edit = itemView.findViewById(R.id.editCatBtn);
             delete = itemView.findViewById(R.id.deleteCatBtn);
+            gotos = itemView.findViewById(R.id.todos);
         }
     }
 }

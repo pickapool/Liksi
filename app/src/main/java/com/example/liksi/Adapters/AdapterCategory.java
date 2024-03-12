@@ -88,10 +88,14 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
                         cat1.setDescription(des.getText().toString());
                         cat1.setCatId(cat.getCatId());
 
+                        if(cate.getText().toString().trim().equals("") || des.getText().toString().trim().equals(""))
+                        {
+                            Toast.makeText(context, "All fields are required!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
                         AppDatabase app = AppDatabase.getInstance(context);
                         app.categoryDao().UpdateCategory(cat1);
                         lDialog.dismiss();
-
                         cats = app.categoryDao().Categories();
                         notifyDataSetChanged();
                     }

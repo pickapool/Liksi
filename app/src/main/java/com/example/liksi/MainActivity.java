@@ -6,20 +6,26 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.liksi.Database.AppDatabase;
+import com.example.liksi.Models.TodoWithCategoryModel;
 import com.example.liksi.Services.NotificationService;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
     TextView textView;
+    private Handler handler = new Handler();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,17 +36,32 @@ public class MainActivity extends AppCompatActivity {
             Intent i = new Intent(this, home.class);
             startActivity(i);
         });
-        Random random = new Random();
-        int randomIndex = random.nextInt(Quotes().size());
-        String randomQuote = Quotes().get(randomIndex);
+
 
         textView = findViewById(R.id.quote);
-        textView.setText(randomQuote);
 
         Intent serviceIntent = new Intent(MainActivity.this, NotificationService.class);
         startService(serviceIntent);
-
+        runnable.run();
     }
+
+    Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            // Execute database query here
+            try {
+                Random random = new Random();
+                int randomIndex = random.nextInt(Quotes().size());
+                String randomQuote = Quotes().get(randomIndex);
+                textView.setText(randomQuote);
+            }catch (Exception ee)
+            {
+                System.out.println("error998" + ee.getMessage());
+            }
+
+            handler.postDelayed(this, 5000);
+        }
+    };
 
     @Override
     protected void onResume() {

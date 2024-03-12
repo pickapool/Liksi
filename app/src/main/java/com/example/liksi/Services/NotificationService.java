@@ -27,7 +27,7 @@ public class NotificationService extends Service {
 
     public static final String NOTIFICATION_CHANNEL_ID = "10001" ;
     private final static String default_notification_channel_id = "default" ;
-    private static final long INTERVAL_MS = 60 * 1000; // 30 seconds
+    private static final long INTERVAL_MS = 59 * 1000; // 50 seconds
     private Handler handler = new Handler();
 
     public  NotificationService(){}
@@ -55,6 +55,7 @@ public class NotificationService extends Service {
                         if (todo.todoModel.isAlarm() && isAlarmTimeMatchesCurrentTime(todo.todoModel, currentTime)) {
                             // Trigger notification
                             createNotification(todo);
+                            return;
                         }
                     }
                 }
@@ -136,6 +137,7 @@ public class NotificationService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
+        Toast.makeText(this, "detroyred", Toast.LENGTH_SHORT).show();
         stopRepeatingTask();
     }
 }

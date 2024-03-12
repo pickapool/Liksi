@@ -36,7 +36,7 @@
                 <TextView
                     android:id="@+id/task"
                     android:layout_width="match_parent"
-                    android:layout_height="34dp"
+                    android:layout_height="wrap_content"
                     android:fontFamily="sans-serif-condensed-medium"
                     android:text="priority task"
                     android:textColor="@color/black"
@@ -45,10 +45,9 @@
                 <TextView
                     android:id="@+id/categoryName"
                     android:layout_width="match_parent"
-                    android:layout_height="17dp"
-                    android:fontFamily="sans-serif-condensed-medium"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
+                    android:layout_height="wrap_content"
+                    android:textColor="#67706a"
+                    android:textSize="16dp"
                     android:textStyle="italic" />
             </LinearLayout>
 

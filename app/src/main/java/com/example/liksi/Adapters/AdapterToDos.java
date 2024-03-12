@@ -95,6 +95,7 @@ public class AdapterToDos extends RecyclerView.Adapter<AdapterToDos.ViewHolder>{
                                     AppDatabase app = AppDatabase.getInstance(context);
                                     app.todoDao().DeleteTodo(todo.todoModel);
                                     todos = app.todoDao().getTodosWithCategory();
+                                    holder.checkBox.setChecked(false);
                                     notifyDataSetChanged();
                                 }
                             });
